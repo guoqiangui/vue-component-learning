@@ -20,6 +20,7 @@ const validate: FormItemContext['validate'] = async (trigger) => {
   validateState.value = 'validating'
 
   const filteredRules = getFilteredRules(trigger)
+  filteredRules.forEach((r) => delete r.trigger)
   if (!filteredRules.length) return true
 
   const descriptor = { [props.prop]: filteredRules }
