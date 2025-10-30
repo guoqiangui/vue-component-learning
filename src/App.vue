@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Example from './examples/alert.vue'
+import Example from './examples/table-render.vue'
 </script>
 
 <template>
