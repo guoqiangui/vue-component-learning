@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { getCurrentInstance, provide } from 'vue'
 import type { TableColumn } from './types'
+import SlotScope from './slot-scope.vue'
+import { tableRootKey } from './constants'
 
 const { rowKey = 'id' } = defineProps<{
   columns: TableColumn[]
   data: Record<string, unknown>[]
   rowKey?: string
 }>()
+
+const instance = getCurrentInstance()!
+provide(tableRootKey, instance)
 </script>
 
 <template>
@@ -28,7 +34,7 @@ const { rowKey = 'id' } = defineProps<{
             <component :is="col.render" :row="item" :col="col" :index="index" />
           </template>
           <template v-else-if="col.slot">
-            <slot :name="col.slot" :row="item" :col="col" :index="index" />
+            <SlotScope :row="item" :col="col" :index="index" />
           </template>
           <template v-else>{{ item[col.key] }}</template>
         </td>

@@ -3,7 +3,8 @@ import type { RenderFunction } from 'vue'
 export interface TableColumn {
   title: string
   key: string
-  render: TableRenderFunction
+  render?: TableRenderFunction
+  slot?: string
 }
 
 export interface TableRenderProps {
