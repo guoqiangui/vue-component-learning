@@ -11,3 +11,38 @@ export const randomString = (length: number = 32) => {
   }
   return result
 }
+
+const typeOf = (data: unknown) => {
+  const t = Object.prototype.toString.call(data)
+  const map: Record<string, string> = {
+    '[object Array]': 'array',
+    '[object Object]': 'object',
+  }
+  return map[t] || 'unknown'
+}
+
+/**
+ * 深拷贝
+ * @param data
+ * @returns
+ */
+export const deepClone = <T>(data: T) => {
+  const t = typeOf(data)
+  let o
+  if (t === 'array') {
+    o = []
+  } else if (t === 'object') {
+    o = {}
+  } else {
+    return data
+  }
+
+  if (t === 'array') {
+    ;(data as unknown[]).forEach((item) => (o as unknown[]).push(deepClone(item)))
+  } else {
+    const d = data as Record<string, unknown>
+    Object.keys(d).forEach((key) => ((o as Record<string, unknown>)[key] = deepClone(d[key])))
+  }
+
+  return o as T
+}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Example from './examples/table-slot3.vue'
+import Example from './examples/tree.vue'
 </script>
 
 <template>
